@@ -1,0 +1,8 @@
+{
+  "name": "SANDIKALE - Sistem Kasir Profesional & SPK Sablon",
+  "description": "Sistem kasir pintar dan manajemen workshop sablon SANDIKALE: POS, SPK DTF, shift kasir X/Z, stok, laporan keuangan, dan layar pelanggan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

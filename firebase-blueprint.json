@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Master produk SANDIKALE (kaos, sablon DTF, merchandise, aksesoris)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "sku": { "type": "string" },
+        "barcode": { "type": "string" },
+        "category": { "type": "string" },
+        "costPrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "minStock": { "type": "number" },
+        "unit": { "type": "string" },
+        "img": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "sellingPrice", "stock", "category"]
+    },
+    "StoreSettings": {
+      "title": "StoreSettings",
+      "description": "Konfigurasi toko SANDIKALE, identitas nota, QRIS, dan printer",
+      "type": "object",
+      "properties": {
+        "storeName": { "type": "string" },
+        "tagline": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "instagram": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "qrisImageUrl": { "type": "string" },
+        "taxRatePercent": { "type": "number" },
+        "enableTax": { "type": "boolean" },
+        "serviceChargePercent": { "type": "number" },
+        "enableServiceCharge": { "type": "boolean" },
+        "receiptHeader": { "type": "string" },
+        "receiptFooter": { "type": "string" },
+        "printerPaperSize": { "type": "string" },
+        "soundEffectsEnabled": { "type": "boolean" },
+        "autoOpenCashDrawer": { "type": "boolean" },
+        "customerFacingDisplayEnabled": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["storeName", "phone"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Akun staf kasir, produksi, dan administrator SANDIKALE",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "username": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "pin": { "type": "string" },
+        "phone": { "type": "string" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["id", "username", "name", "role", "pin"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Transaksi nota penjualan kasir & sablon DTF",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "date": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discountTotal": { "type": "number" },
+        "taxAmount": { "type": "number" },
+        "serviceCharge": { "type": "number" },
+        "grandTotal": { "type": "number" },
+        "amountPaid": { "type": "number" },
+        "change": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "status": { "type": "string" },
+        "cashierName": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "invoiceNumber", "grandTotal", "status"]
+    },
+    "Shift": {
+      "title": "Shift",
+      "description": "Riwayat shift kasir dan transaksi laci kas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "shiftNumber": { "type": "number" },
+        "cashierId": { "type": "string" },
+        "cashierName": { "type": "string" },
+        "startTime": { "type": "string" },
+        "startingCash": { "type": "number" },
+        "expectedCashEnding": { "type": "number" },
+        "totalSalesCash": { "type": "number" },
+        "totalSalesNonCash": { "type": "number" },
+        "totalTransactions": { "type": "number" },
+        "status": { "type": "string" },
+        "drawerTransactions": { "type": "array" }
+      },
+      "required": ["id", "shiftNumber", "cashierId", "status"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Koleksi katalog dan stok barang toko"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/StoreSettings" },
+      "description": "Pengaturan identitas toko dan struk"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Daftar akun staf kasir dan admin"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Riwayat transaksi penjualan"
+    },
+    "/shifts/{shiftId}": {
+      "schema": { "$ref": "#/entities/Shift" },
+      "description": "Riwayat pembukaan dan penutupan shift kasir"
+    }
+  }
+}
