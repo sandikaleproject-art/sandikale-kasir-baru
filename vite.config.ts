@@ -5,6 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: '/sandikale-kasir-baru/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
