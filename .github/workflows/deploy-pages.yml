@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 22
       - name: Pasang dependensi
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Build aplikasi
         run: npm run build
       - name: Siapkan GitHub Pages
