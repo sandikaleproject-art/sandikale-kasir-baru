@@ -417,10 +417,11 @@ export function seedInitialBackupData(force = false) {
   try {
     const existingProducts = localStorage.getItem('sandikale_pos_products');
     const existingSettings = localStorage.getItem('sandikale_pos_settings');
-    const existingUser = localStorage.getItem('sandikale_pos_user');
+    const existingUsers = localStorage.getItem('sandikale_pos_users');
 
-    // Only seed if empty or explicitly forced or existing products is tiny placeholder
-    const needsSeed = force || !existingProducts || !existingSettings || !existingUser;
+    // Only seed catalog/settings/users if empty or explicitly forced
+    // CRITICAL: Do NOT require existingUser, so that logging out or new sessions never force an auto-login
+    const needsSeed = force || !existingProducts || !existingSettings || !existingUsers;
 
     if (needsSeed) {
       console.log('Seeding SANDIKALE data from 2026-11-05 backup...');
@@ -429,14 +430,12 @@ export function seedInitialBackupData(force = false) {
       localStorage.setItem('sandikale_pos_users', JSON.stringify(BACKUP_SEED_DATA.users));
       localStorage.setItem('sandikale_pos_shifts', JSON.stringify(BACKUP_SEED_DATA.shifts || []));
       localStorage.setItem('sandikale_pos_orders', JSON.stringify(BACKUP_SEED_DATA.orders || []));
-      
-      // Auto-login as Hairi Habibullah (Admin)
-      if (BACKUP_SEED_DATA.users && BACKUP_SEED_DATA.users.length > 0) {
-        localStorage.setItem('sandikale_pos_user', JSON.stringify(BACKUP_SEED_DATA.users[0]));
-      }
-      console.log('SANDIKALE seed completed successfully.');
+      // NOTE: We do NOT auto-login as admin.
+      // Every new user/device must log in with their PIN at the login screen.
+      console.log('SANDIKALE catalog and user accounts seeded successfully.');
     }
   } catch (e) {
     console.error('Failed to seed backup data:', e);
   }
 }
+
